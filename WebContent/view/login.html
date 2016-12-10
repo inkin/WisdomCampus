@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>login</title>
+<script src="js/jquery-1.8.0.min.js"></script>
+<script type="text/javascript">
+/* 从cookie中读取数据 */
+function ReadCookie(cookieName) {
+    var theCookie = "" + document.cookie;
+    var ind = theCookie.indexOf(cookieName);
+    if(ind==-1 || cookieName=="")  return "";
+    var ind1 = theCookie.indexOf(';',ind);
+    if(ind1==-1) ind1  =  theCookie.length;
+    /*读取Cookie值*/
+    return unescape(theCookie.substring(ind+cookieName.length+1,ind1));
+}
+
+/* 往cookie设值 */
+function SetCookie(cookieName,cookieValue,nDays) {
+    /*当前日期*/
+    var today = new Date();
+    /*Cookie过期时间*/
+    var expire = new Date();
+    /*如果未设置nDays参数或者nDays为0，取默认值1*/
+    if(nDays == null || nDays == 0) nDays = 1;
+    /*计算Cookie过期时间*/
+    expire.setTime(today.getTime() + 3600000 * 24 * nDays);
+    /*设置Cookie值*/
+    document.cookie = cookieName + "=" + escape(cookieValue)
+        + ";expires=" + expire.toGMTString();
+}
+function login() {
+    // alert("login button test!");
+    if($("#account").val()==''){
+        alert("请输入用户账号！");
+        $("#account").focus();
+        return false;
+    }
+    if($("#password").val()==''){
+        alert("请输入用户密码！");
+        $("#password").focus();
+        return false;
+    }
+    var sendData={
+        "account":$("#account").val(),
+        "password":$("#password").val()
+    };
+    $.ajax({
+        url:"/WisdomCampus/student/login",
+        type:"POST",
+        dataType:"json",
+        timeOut:40,
+        beforeSend:function () {
+            $(".btn-submit").prop("disabled",true);
+            $(".btn-submit").val("登录中...");
+        },
+        contentType:"application/json",
+        data:JSON.stringify(sendData),
+        success:function(json) {
+            alert("login successfully");
+            /* if(json.result=="loginsuccess") {
+                sessionStorage.account=json.account;
+                sessionStorage.code=json.code;
+                SetCookie("account" ,json.account,1);
+                SetCookie("code",json.code,1);
+                SetCookie("managerLevel",json.managerLevel,1);
+                SetCookie("name",json.name,1);
+                SetCookie("managerServiceId",json.name,1);
+                sessionStorage.managerLevel=json.managerLevel;
+                sessionStorage.manageServiceArray=JSON.stringify(json);
+                window.location.href="index.html";
+            }
+            else if(json.result=="no such a manager"){
+                alert("找不到管理员");
+            }
+            else if(json.result=="is not manager"){
+                alert("不是管理员");
+            }else if(json.result=="fail")
+            {
+                alert("账号或密码不对，请重新输入");
+            } */
+        },
+        error:function() {
+            alert("无法连接服务器！,请稍后重试");
+        },complete:function () {
+            $(".btn-submit").prop("disabled",false);
+            $(".btn-submit").val("登录...")
+        }
+    });
+}
+$(function(){
+
+    $("#account").keydown(function(event){
+        var  e=event||window.event;
+        if(e.keyCode==13){
+
+            $("#password").focus();
+        }
+
+    });
+
+    $("#password").keydown(function(event){
+        var  e=event||window.event;
+        if(e.keyCode==13){
+
+            login();
+        }
+
+    });
+    $("img").css("height",(document.body.clientHeight-2));
+});
+
+</script>
+<style>
+    .title h1{
+        font-size: 20px;
+	    font-weight: bold;
+	    color: #02056d;
+	    background: #cec8c8;
+	    margin: 10px 10px;
+	    padding: 10px 10px;
+	    text-align: center;
+    }
+</style>
+</head>
+<body>
+	<div class="title">
+		<h1>智慧校园师生信息管理体统</h1>
+	</div>
+
+	<div style="text-align: center;">
+		<div>
+			<label>账号：</label> <input id="account" type="text" />
+		</div>
+
+		<div>
+			<label>密码：</label> <input id="password" type="password" />
+		</div>
+
+		<button type="button" name="login" onclick="login()">登录</button>
+	</div>
+
+</body>
+</html>

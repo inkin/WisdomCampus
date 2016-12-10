@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ocean.dao.StudentDao">
+	<resultMap id="student" type="com.ocean.model.Student" >
+		<result property="studentNo" column="s_no"/>
+		<result property="studentName" column="s_name"/>
+		<result property="studentTell" column="s_tell"/>
+		<result property="studentMail" column="s_mail"/>
+		<result property="studentPicture" column="s_picture"/>
+		<result property="studentSex" column="s_sex"/>
+		<result property="classNo" column="class_no"/>
+		<result property="expression" column="s_expression"/>
+	</resultMap>
+	
+	<select id="selectStudentByName" parameterType="string" resultMap="student">
+		select * 
+		from student 
+		where s_name=#{studentName}
+	</select>
+	
+	<select id="login" parameterType="string" resultMap="student">
+		select * 
+		from student 
+		where s_no=#{account}
+	</select>
+	
+	<select id="selectClassmates" parameterType="string" resultMap="student">
+		select s_no,s_name,s_tell,s_picture,s_mail,s_expression,s_sex
+		from student
+		where class_no=(select class_no from student where s_no=#{account})
+	</select> 
+	
+</mapper>
