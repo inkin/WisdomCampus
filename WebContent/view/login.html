@@ -58,9 +58,8 @@ function login() {
         contentType:"application/json",
         data:JSON.stringify(sendData),
         success:function(json) {
-            alert("login successfully");
-            /* if(json.result=="loginsuccess") {
-                sessionStorage.account=json.account;
+            if(json[0].status=="success") {
+                /* sessionStorage.account=json.account;
                 sessionStorage.code=json.code;
                 SetCookie("account" ,json.account,1);
                 SetCookie("code",json.code,1);
@@ -68,18 +67,16 @@ function login() {
                 SetCookie("name",json.name,1);
                 SetCookie("managerServiceId",json.name,1);
                 sessionStorage.managerLevel=json.managerLevel;
-                sessionStorage.manageServiceArray=JSON.stringify(json);
-                window.location.href="index.html";
+                sessionStorage.manageServiceArray=JSON.stringify(json); */
+                //window.location.href="index.html";
+                alert("登陆成功！");
             }
-            else if(json.result=="no such a manager"){
-                alert("找不到管理员");
+            else if(json[0].status=="no such a student"){
+                alert("账号不存在，请重新输入！");
             }
-            else if(json.result=="is not manager"){
-                alert("不是管理员");
-            }else if(json.result=="fail")
-            {
-                alert("账号或密码不对，请重新输入");
-            } */
+            else if(json[0].status=="password error"){
+                alert("密码不正确，请重新输入！");
+            }
         },
         error:function() {
             alert("无法连接服务器！,请稍后重试");
