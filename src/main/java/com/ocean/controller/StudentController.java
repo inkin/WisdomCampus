@@ -26,7 +26,7 @@ import net.sf.json.JSONObject;
  *
  */
 @Controller
-@RequestMapping("/student")
+@RequestMapping(value = "/student")
 public class StudentController 
 {
 	@Resource
@@ -38,35 +38,29 @@ public class StudentController
 	 * @param request
 	 * @param response
 	 */
-	@RequestMapping("/login")
+	@RequestMapping(value = "/login")
 	@ResponseBody
-	public JSONObject login(HttpServletRequest request, HttpServletResponse response,
-			@RequestBody Map<String, Object> user) 
+	public JSONObject login(@RequestBody JSONObject json) 
 	{
-		String account = (String) user.get("account");
-		String password = (String) user.get("password");
+		String account = json.getString("account");
+		String password = json.getString("password");
+		json.clear();
 
 		Student student = service.login(account);
 
 		if (student == null) 
 		{
-			Map<Object, String> map = new HashMap<Object, String>();
-			map.put("status", "no such a student");
-			JSONObject json = JSONObject.fromObject(map);
+			json.put("status", "no such a student");
 			return json;
 		} 
 		else if (!password.equals(student.getPassword())) 
 		{
-			Map<Object, String> map = new HashMap<Object, String>();
-			map.put("status", "password error");
-			JSONObject json = JSONObject.fromObject(map);
+			json.put("status", "password error");
 			return json;
 		} 
 		else 
 		{
-			Map<Object, String> map = new HashMap<Object, String>();
-			map.put("status", "success");
-			JSONObject json = JSONObject.fromObject(map);
+			json.put("status", "success");
 			return json;
 		}
 
@@ -75,7 +69,7 @@ public class StudentController
 	/**
 	 * 根据姓名查找学生
 	 */
-	@RequestMapping("/selectStudentByName")
+	@RequestMapping(value = "/selectStudentByName")
 	public void selectStudentByName( ) 
 	{
 		String studentName = "龙卷风";
