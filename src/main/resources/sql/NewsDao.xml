@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ocean.dao.NewsDao">
+	<resultMap type="com.ocean.model.News" id="news">
+		<result property="newsId" column="n_id"/>
+		<result property="newsTitle" column="n_title"/>
+		<result property="newsDate" column="n_date"/>
+		<result property="author" column="n_author"/>
+		<result property="newsContent" column="n_content"/>
+		<result property="newsaddress" column="n_address"/>
+		<result property="newsTypeId" column="newsType_id"/>
+	</resultMap>
+	
+	<select id="selectNews" parameterType="string" resultMap="news">
+		select * 
+		from news
+		where n_title like '%${_parameter}%'
+	</select>
+</mapper>

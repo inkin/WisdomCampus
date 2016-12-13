@@ -58,7 +58,7 @@ function login() {
         contentType:"application/json",
         data:JSON.stringify(sendData),
         success:function(json) {
-            if(json[0].status=="success") {
+            if(json.status=="success") {
                 /* sessionStorage.account=json.account;
                 sessionStorage.code=json.code;
                 SetCookie("account" ,json.account,1);
@@ -68,19 +68,20 @@ function login() {
                 SetCookie("managerServiceId",json.name,1);
                 sessionStorage.managerLevel=json.managerLevel;
                 sessionStorage.manageServiceArray=JSON.stringify(json); */
-                //window.location.href="index.html";
+                window.location.href="index.html";
                 alert("登陆成功！");
             }
-            else if(json[0].status=="no such a student"){
+            else if(json.status=="no such a student"){
                 alert("账号不存在，请重新输入！");
             }
-            else if(json[0].status=="password error"){
+            else if(json.status=="password error"){
                 alert("密码不正确，请重新输入！");
             }
         },
         error:function() {
             alert("无法连接服务器！,请稍后重试");
-        },complete:function () {
+        },
+        complete:function () {
             $(".btn-submit").prop("disabled",false);
             $(".btn-submit").val("登录...")
         }
@@ -91,19 +92,15 @@ $(function(){
     $("#account").keydown(function(event){
         var  e=event||window.event;
         if(e.keyCode==13){
-
             $("#password").focus();
         }
-
     });
 
     $("#password").keydown(function(event){
         var  e=event||window.event;
         if(e.keyCode==13){
-
             login();
         }
-
     });
     $("img").css("height",(document.body.clientHeight-2));
 });
