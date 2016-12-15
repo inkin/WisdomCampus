@@ -22,7 +22,7 @@ public class NewsController {
 	@RequestMapping(value = "/selectNews")
 	@ResponseBody
 	public JSONArray selectNews(/*@RequestParam(value="key") String key*/){
-		String key = "肇庆学院招聘会";
+		String key = "有";
 		List<News> news = service.selectNews(key);
 		JSONArray json = JSONArray.fromObject(news); 
 		System.out.println(json);

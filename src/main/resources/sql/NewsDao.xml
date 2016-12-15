@@ -13,9 +13,27 @@
 		<result property="newsTypeId" column="newsType_id"/>
 	</resultMap>
 	
-	<select id="selectNews" parameterType="string" resultMap="news">
+	<!-- <select id="selectNews" parameterType="string" resultMap="news">
 		select * 
 		from news
 		where n_title like '%${_parameter}%'
+	</select> -->
+	
+	<select id="selectNews" parameterType="string" resultMap="news">
+		select *
+		from news
+		<trim prefix="where" prefixOverrides="and |or ">
+			<if test="_parameter != null and _parameter != '' ">
+				or n_title like '%${_parameter}%'
+			</if>
+			<if test="_parameter != null and _parameter != '' ">
+				or n_content like '%${_parameter}%'
+			</if>
+			<if test="_parameter != null and _parameter != '' ">
+				or n_author like '%${_parameter}%'
+			</if>
+			
+		</trim>
 	</select>
+	
 </mapper>
