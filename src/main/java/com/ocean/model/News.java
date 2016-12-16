@@ -1,21 +1,59 @@
 package com.ocean.model;
 
-import java.util.Date;
-
 /**
  * 消息实体类
  * 
- * @author Ocean
+ * @newsnewsAuthor Ocean
  *
  */
 public class News {
 	private String newsId;
 	private String newsTitle;
-	private String author;
-	private Date newsDate;
+	private String newsAuthor;
+	private String newsDate;
 	private String newsContent;
-	private String newsaddress;
+	private String newsAddress;
 	private String newsTypeId;
+	private String newsStatus;
+
+	
+
+	public News(String newsId, String newsTitle, String newsAuthor, String newsDate, String newsContent,
+			String newsAddress, String newsTypeId, String newsStatus) {
+		super();
+		this.newsId = newsId;
+		this.newsTitle = newsTitle;
+		this.newsAuthor = newsAuthor;
+		this.newsDate = newsDate;
+		this.newsContent = newsContent;
+		this.newsAddress = newsAddress;
+		this.newsTypeId = newsTypeId;
+		this.newsStatus = newsStatus;
+	}
+	
+	
+
+	public News(String newsId, String newsTitle, String newsAuthor, String newsDate, String newsContent,
+			String newsAddress, String newsTypeId) {
+		super();
+		this.newsId = newsId;
+		this.newsTitle = newsTitle;
+		this.newsAuthor = newsAuthor;
+		this.newsDate = newsDate;
+		this.newsContent = newsContent;
+		this.newsAddress = newsAddress;
+		this.newsTypeId = newsTypeId;
+	}
+
+
+
+	public String getNewsStatus() {
+		return newsStatus;
+	}
+
+	public void setNewsStatus(String newsStatus) {
+		this.newsStatus = newsStatus;
+	}
 
 	public String getNewsId() {
 		return newsId;
@@ -33,19 +71,19 @@ public class News {
 		this.newsTitle = newsTitle;
 	}
 
-	public String getAuthor() {
-		return author;
+	public String getNewsAuthor() {
+		return newsAuthor;
 	}
 
-	public void setAuthor(String author) {
-		this.author = author;
+	public void setNewsAuthor(String newsAuthor) {
+		this.newsAuthor = newsAuthor;
 	}
 
-	public Date getNewsDate() {
+	public String getNewsDate() {
 		return newsDate;
 	}
 
-	public void setNewsDate(Date newsDate) {
+	public void setNewsDate(String newsDate) {
 		this.newsDate = newsDate;
 	}
 
@@ -57,12 +95,12 @@ public class News {
 		this.newsContent = newsContent;
 	}
 
-	public String getNewsaddress() {
-		return newsaddress;
+	public String getNewsAddress() {
+		return newsAddress;
 	}
 
-	public void setNewsaddress(String newsaddress) {
-		this.newsaddress = newsaddress;
+	public void setNewsAddress(String newsAddress) {
+		this.newsAddress = newsAddress;
 	}
 
 	public String getNewsTypeId() {
@@ -70,22 +108,6 @@ public class News {
 	}
 
 	public void setNewsTypeId(String newsTypeId) {
-		this.newsTypeId = newsTypeId;
-	}
-
-	@Override
-	public String toString() {
-		return "News []";
-	}
-
-	public News(String newsId, String newsTitle, String author, Date newsDate, String newsContent, String newsaddress,
-			String newsTypeId) {
-		this.newsId = newsId;
-		this.newsTitle = newsTitle;
-		this.author = author;
-		this.newsDate = newsDate;
-		this.newsContent = newsContent;
-		this.newsaddress = newsaddress;
 		this.newsTypeId = newsTypeId;
 	}
 

@@ -17,4 +17,16 @@ public class NewsService {
 	public List<News> selectNews(String key){
 		return dao.selectNews(key);
 	}
+	
+	public void saveNews(News news){
+		dao.saveNews(news);
+	}
+	
+	public void updateNews(News news){
+		dao.updateNews(news);
+	}
+	
+	public void publicNews(String newsId){
+		dao.publicNews(newsId);
+	}
 }

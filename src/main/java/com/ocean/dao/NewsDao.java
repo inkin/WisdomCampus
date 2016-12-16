@@ -18,9 +18,14 @@ public interface NewsDao {
 	void saveNews(News news);
 	
 	/**
+	 * 修改新闻
+	 */
+	void updateNews(News news);
+	
+	/**
 	 * 发布新闻
 	 */
-	void publicNews();
+	void publicNews(String newsId);
 	
 	/**
 	 * 删除新闻
