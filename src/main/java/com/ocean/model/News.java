@@ -7,26 +7,24 @@ package com.ocean.model;
  *
  */
 public class News {
-	private String newsId;
-	private String newsTitle;
-	private String newsAuthor;
-	private String newsDate;
-	private String newsContent;
-	private String newsAddress;
-	private String newsTypeId;
-	private String newsStatus;
+	private String newsId;              //id
+	private String newsTitle;			//标题
+	private String newsAuthor;			//作者
+	private String newsDate;			//日期
+	private String newsContent;			//内容
+	private String newsTypeId;			//消息类型id
+	private String newsStatus;			//状态
 
 	
 
 	public News(String newsId, String newsTitle, String newsAuthor, String newsDate, String newsContent,
-			String newsAddress, String newsTypeId, String newsStatus) {
+		  String newsTypeId, String newsStatus) {
 		super();
 		this.newsId = newsId;
 		this.newsTitle = newsTitle;
 		this.newsAuthor = newsAuthor;
 		this.newsDate = newsDate;
 		this.newsContent = newsContent;
-		this.newsAddress = newsAddress;
 		this.newsTypeId = newsTypeId;
 		this.newsStatus = newsStatus;
 	}
@@ -34,14 +32,13 @@ public class News {
 	
 
 	public News(String newsId, String newsTitle, String newsAuthor, String newsDate, String newsContent,
-			String newsAddress, String newsTypeId) {
+		 String newsTypeId) {
 		super();
 		this.newsId = newsId;
 		this.newsTitle = newsTitle;
 		this.newsAuthor = newsAuthor;
 		this.newsDate = newsDate;
 		this.newsContent = newsContent;
-		this.newsAddress = newsAddress;
 		this.newsTypeId = newsTypeId;
 	}
 
@@ -93,14 +90,6 @@ public class News {
 
 	public void setNewsContent(String newsContent) {
 		this.newsContent = newsContent;
-	}
-
-	public String getNewsAddress() {
-		return newsAddress;
-	}
-
-	public void setNewsAddress(String newsAddress) {
-		this.newsAddress = newsAddress;
 	}
 
 	public String getNewsTypeId() {
