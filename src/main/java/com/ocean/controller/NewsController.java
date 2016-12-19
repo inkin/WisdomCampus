@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.ocean.model.News;
+import com.ocean.pojo.SelectKey;
 import com.ocean.service.NewsService;
 
 import net.sf.json.JSONArray;
@@ -23,18 +24,32 @@ public class NewsController
 	@Resource NewsService service;
 	
 	/**
-	 * 消息查找
+	 * 后台消息查找
 	 * @return
 	 */
 	@RequestMapping(value = "/selectNews")
 	@ResponseBody
 	public /*JSONArray*/ void selectNews(/*@RequestParam(value="key") String key*/)
 	{
-		String key = "有";
+		SelectKey key = new SelectKey();
+		key.setNewsAuthor("Ocean");
 		List<News> news = service.selectNews(key);
 		JSONArray json = JSONArray.fromObject(news); 
 		System.out.println(json);
 //		return json;
+	}
+	
+	/**
+	 * 前端消息查询
+	 * @return
+	 */
+	@RequestMapping(value = "/selectNews02")
+	public void selectNews02()
+	{
+		SelectKey key = new SelectKey();
+		key.setNewsTitle("肇庆");
+		List<News> news = service.selectNews02(key);
+		System.out.println(news);
 	}
 	
 	/**

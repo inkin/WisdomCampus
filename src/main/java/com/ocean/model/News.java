@@ -15,8 +15,6 @@ public class News {
 	private String newsTypeId;			//消息类型id
 	private String newsStatus;			//状态
 
-	
-
 	public News(String newsId, String newsTitle, String newsAuthor, String newsDate, String newsContent,
 		  String newsTypeId, String newsStatus) {
 		super();

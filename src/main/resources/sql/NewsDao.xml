@@ -7,36 +7,65 @@
 		<result property="newsId" column="n_id"/>
 		<result property="newsTitle" column="n_title"/>
 		<result property="newsDate" column="n_date"/>
-		<result property="author" column="n_author"/>
+		<result property="newsAuthor" column="n_author"/>
 		<result property="newsContent" column="n_content"/>
 		<result property="newsTypeId" column="newsType_id"/>
 		<result property="newsStatus" column="n_status"/>
 	</resultMap>
 	
-	<!-- <select id="selectNews" parameterType="string" resultMap="news">
-		select * 
-		from news
-		where n_title like '%${_parameter}%'
-	</select> -->
-	
-	<select id="selectNews" parameterType="string" resultMap="news">
+	<select id="selectNews" parameterType="com.ocean.pojo.SelectKey" resultMap="news">
 		select n_title,n_author,n_date,n_content
 		from news
 		<trim prefix="where" prefixOverrides="and |or ">
-			<if test="_parameter != null and _parameter != '' ">
-				or n_title like '%${_parameter}%'
+			<if test="_parameter.newsTitle != null and _parameter.newsTitle != '' ">
+				or n_title like '%${_parameter.newsTitle}%'
 			</if>
-			<if test="_parameter != null and _parameter != '' ">
-				or n_date like '%${_parameter}%'
+			<if test="_parameter.newsDate != null and _parameter.newsDate != '' ">
+				or n_date=_parameter.newsDate
 			</if>
-			<if test="_parameter != null and _parameter != '' "> 
-				or n_author like '%${_parameter}%'
+			<if test="_parameter.newsAuthor != null and _parameter.newsAuthor != '' "> 
+				or n_author like '%${_parameter.newsAuthor}%'
 			</if>
-			<if test="_parameter != null and _parameter != '' ">
-				or newsType_id=#{key}
+			<if test="_parameter.newsTypeId != null and _parameter.newsTypeId != '' ">
+				or newsType_id=#{_parameter.newsTypeId}
 			</if>
 			
 		</trim>
+	</select>
+	
+	<select id="selectNews02" parameterType="com.ocean.pojo.SelectKey" resultMap="news">
+		select n_title,n_author,n_date,n_content
+		from news
+		<trim prefix="where" prefixOverrides="and |or ">
+			<if test="_parameter.newsTitle != null and _parameter.newsTitle != '' ">
+				or n_title like '%${_parameter.newsTitle}%'
+			</if>
+			<if test="_parameter.newsDate != null and _parameter.newsDate != '' ">
+				or n_date=_parameter.newsDate
+			</if>
+			<if test="_parameter.newsAuthor != null and _parameter.newsAuthor != '' "> 
+				or n_author like '%${_parameter.newsAuthor}%'
+			</if>
+			<if test="_parameter.newsTypeId != null and _parameter.newsTypeId != '' ">
+				or newsType_id=#{_parameter.newsTypeId}
+			</if>
+			and n_status='就绪'
+		</trim>
+		<!-- where n_status='就绪' -->
+		<!-- <choose>
+			<when test="_parameter.newsTitle != null and _parameter.newsTitle != '' ">
+				or n_title like '%${_parameter.newsTitle}%'
+			</when>
+			<when test="_parameter.newsDate != null and _parameter.newsDate != '' ">
+				or n_date=_parameter.newsDate
+			</when>
+			<when test="_parameter.newsAuthor != null and _parameter.newsAuthor != '' "> 
+				or n_author like '%${_parameter.newsAuthor}%'
+			</when>
+			<when test="_parameter.newsTypeId != null and _parameter.newsTypeId != '' ">
+				or newsType_id=#{_parameter.newsTypeId}
+			</when>
+		</choose> -->
 	</select>
 	
 	<insert id="saveNews" parameterType="com.ocean.model.News">

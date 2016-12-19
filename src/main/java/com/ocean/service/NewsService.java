@@ -8,15 +8,23 @@ import org.springframework.stereotype.Service;
 
 import com.ocean.dao.NewsDao;
 import com.ocean.model.News;
+import com.ocean.pojo.SelectKey;
 
 @Service 
 public class NewsService {
 	
 	@Resource NewsDao dao;
 	
-	public List<News> selectNews(String key)
+	//后台
+	public List<News> selectNews(SelectKey key)
 	{
 		return dao.selectNews(key);
+	}
+	
+	//前端
+	public List<News> selectNews02(SelectKey key)
+	{
+		return dao.selectNews02(key);
 	}
 	
 	public void saveNews(News news)

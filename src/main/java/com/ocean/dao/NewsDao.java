@@ -3,17 +3,25 @@ package com.ocean.dao;
 import java.util.List;
 
 import com.ocean.model.News;
+import com.ocean.pojo.SelectKey;
 
 public interface NewsDao {
 	/**
-	 * 模糊查询消息
+	 * 模糊查询消息(后台)
 	 * 可以根据标题、时间、作者、类型来查找
 	 * 要解决的问题：前端，后台，数据库时间格式的转换
 	 * 前后台查看的消息不一样，前台只能看到已发布的消息，后台是所有
 	 * @param key
 	 * @return
 	 */
-	List<News> selectNews(String key);
+	List<News> selectNews(SelectKey key);
+	
+	/**
+	 * 消息模糊查询（前端）
+	 * @param key
+	 * @return
+	 */
+	List<News> selectNews02(SelectKey key);
 	
 	/**
 	 * 保存消息
