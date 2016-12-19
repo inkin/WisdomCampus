@@ -93,7 +93,7 @@
 	
 	<update id="updateNews" parameterType="com.ocean.model.News">
 		update news
-		<set>
+		<trim prefix="set" suffixOverrides=",">
 			<if test=" newsTitle != null and newsTitle != '' ">
 				n_title=#{newsTitle},
 			</if>
@@ -109,7 +109,7 @@
 			<if test=" newsTypeId != null and newsTypeId != '' ">
 				newsType_id=#{newsTypeId}
 			</if>
-		</set>
+		</trim>
 		where n_id=#{newsId}
 			
 	</update>
