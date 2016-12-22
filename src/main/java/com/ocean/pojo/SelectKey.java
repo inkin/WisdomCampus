@@ -2,6 +2,11 @@ package com.ocean.pojo;
 
 import org.springframework.stereotype.Component;
 
+/**
+ * 消息查询关键字集实体类
+ * @author Administrator
+ *
+ */
 @Component
 public class SelectKey {
 	private String newsTitle;

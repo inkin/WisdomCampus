@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+ <mapper namespace="com.ocean.dao.ProfessionDao">
+ 	<resultMap type="com.ocean.model.Institute" id="institute">
+ 		<result property="instituteNo" column="i_no"/>
+ 		<result property="instituteName" column="i_name"/>
+ 		<result property="profession" column="i_profession"/>
+ 	</resultMap>
+ 	
+ 	<insert id="addProfession" parameterType="com.ocean.model.Institute" >
+ 		insert into institute 
+ 		(
+ 			i_no,
+ 			i_name,
+ 			i_profession
+ 		)
+ 		values
+ 		(
+ 			#{instituteNo},
+ 			#{instituteName},
+ 			#{profession}
+ 		)
+ 	</insert>
+ 	
+ 	<update id="updateProfession" parameterType="com.ocean.model.Institute">
+ 		update institute 
+ 		<trim prefix="set" prefixOverrides=",">
+ 			<if test="_parameter.instituteName != null and _parameter.instituteName != '' ">
+ 				i_name=#{_parameter.instituteName},
+ 			</if>
+ 			<if test="_parameter.profession != null and _parameter.profession != '' ">
+ 				i_profession=#{_parameter.profession}
+ 			</if>
+ 		</trim>
+ 		where i_no=#{_parameter.instituteNo}
+ 	</update>
+ 	
+ 	<delete id="deleteProfession" parameterType="string">
+ 		delete from institute
+ 		where i_no=#{instituteNo}
+ 	</delete>
+ 	
+ 	<select id="selectProfession" parameterType="string" resultMap="institute">
+ 		select i_name,i_profession
+ 		from institute
+ 		<trim prefix="where" prefixOverrides="and |or ">
+ 		<if test="_parameter != null and _parameter != '' ">
+ 			i_name like '%${_parameter}%'
+ 		</if>
+ 		<if test="_parameter != null and _parameter != '' ">
+ 			or i_profession like '%${_parameter}%'
+ 		</if>
+ 		</trim>
+ 	</select>
+ 	
+ </mapper>
