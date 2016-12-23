@@ -19,7 +19,7 @@ public class StudentService {
 	 * @param studentName
 	 * @return
 	 */
-	public Student selectStudentByName(String studentName)
+	public List<Student> selectStudentByName(String studentName)
 	{
 		return dao.selectStudentByName(studentName);
 	}

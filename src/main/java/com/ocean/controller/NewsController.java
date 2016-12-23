@@ -29,14 +29,16 @@ public class NewsController
 	 */
 	@RequestMapping(value = "/selectNews")
 	@ResponseBody
-	public /*JSONArray*/ void selectNews(/*@RequestParam(value="key") String key*/)
+	public JSONArray selectNews(@RequestBody JSONObject json)
 	{
 		SelectKey key = new SelectKey();
-		key.setNewsAuthor("Ocean");
+		key.setNewsAuthor(json.getString("newsAuthor"));
+		key.setNewsDate(json.getString("newsDate"));
+		key.setNewsTitle(json.getString("newsTitle"));
+		key.setNewsTypeId(json.getString("newsTypeId"));
 		List<News> news = service.selectNews(key);
-		JSONArray json = JSONArray.fromObject(news); 
-		System.out.println(json);
-//		return json;
+		JSONArray jsonArray = JSONArray.fromObject(news); 
+		return jsonArray;
 	}
 	
 	/**
@@ -44,12 +46,18 @@ public class NewsController
 	 * @return
 	 */
 	@RequestMapping(value = "/selectNews02")
-	public void selectNews02()
+	@ResponseBody
+	public JSONArray selectNews02(@RequestBody JSONObject json)
 	{
 		SelectKey key = new SelectKey();
-		key.setNewsTitle("肇庆");
+		key.setNewsAuthor(json.getString("newsAuthor"));
+		key.setNewsDate(json.getString("newsDate"));
+		key.setNewsTitle(json.getString("newsTitle"));
+		key.setNewsTypeId(json.getString("newsTypeId"));
 		List<News> news = service.selectNews02(key);
-		System.out.println(news);
+		JSONArray jsonArray = JSONArray.fromObject(news);
+		
+		return jsonArray;
 	}
 	
 	/**
@@ -57,57 +65,41 @@ public class NewsController
 	 */
 	@RequestMapping(value = "/saveNews")
 	@ResponseBody
-	public /*JSONObject*/ void saveNews(/*@RequestBody JSONObject json*/)
+	public JSONObject saveNews(@RequestBody JSONObject json)
 	{
-		/*String newsTitle = json.getString("newsTitle");
-		String newsAuthor = json.getString("newsAuthor");
-		String newsContent = json.getString("newsContent");
-		String newsDate = json.getString("newsDate");
-		String newsAddress = json.getString("newsAddress");
-		String newsTypeId = json.getString("newsTypeId");
-		json.clear();*/
-		
-		String newsTitle = "bingyu";
-		String newsAuthor = "Ocean";
-		String newsContent = "天气很冷，要注意保暖。天空飘来五个字，那都不是事，是事也就烦一会";
-		String newsDate = "2016-12-16";
-		String newsTypeId = "1";
-		String newsId = "4";
-		String newsStatus = "就绪";
-		
-		News news = new News(newsId, newsTitle, newsAuthor, newsDate, newsContent, newsTypeId,newsStatus);
-		service.saveNews(news);
-		/*//保存不成功怎么办？
-		json.put("reslut", "success");
-		
-		return json;*/
-	}
-	
-	@RequestMapping(value = "/updateNews")
-	@ResponseBody
-	public /*JSONObject*/ void updateNews(/*@RequestBody JSONObject json*/)
-	{
-		/*String newsId = json.getString("newsId");
 		String newsTitle = json.getString("newsTitle");
 		String newsAuthor = json.getString("newsAuthor");
 		String newsContent = json.getString("newsContent");
 		String newsDate = json.getString("newsDate");
-		String newsAddress = json.getString("newsAddress");
-		String newsTypeId = json.getString("newsTypeId");*/
+		String newsTypeId = json.getString("newsTypeId");
+		json.clear();
 		
-		String newsTitle = "一辈子暖暖就好";
-		String newsAuthor = "Ocean";
-		String newsContent = "我永远爱你到老";
-		String newsDate = "2016-12-16";
-		String newsTypeId = "01";
-		String newsId = "02";
+		//问题，主键自增。
+		News news = new News("09",newsTitle, newsAuthor, newsDate, newsContent, newsTypeId);
+		service.saveNews(news);
+		//保存不成功怎么办？
+		json.put("reslut", "success");
+		
+		return json;
+	}
+	
+	@RequestMapping(value = "/updateNews")
+	@ResponseBody
+	public JSONObject updateNews(@RequestBody JSONObject json)
+	{
+		String newsId = json.getString("newsId");
+		String newsTitle = json.getString("newsTitle");
+		String newsAuthor = json.getString("newsAuthor");
+		String newsContent = json.getString("newsContent");
+		String newsDate = json.getString("newsDate");
+		String newsTypeId = json.getString("newsTypeId");
 		
 		News news = new News(newsId, newsTitle, newsAuthor, newsDate, newsContent, newsTypeId);
 		service.updateNews(news);
-	/*	json.clear(); 
+		json.clear(); 
 		json.put("reslut", "ok");
 		
-		return json;*/
+		return json;
 	}
 	
 	/**
@@ -116,32 +108,39 @@ public class NewsController
 	 */
 	@RequestMapping(value = "/publicNews")
 	@ResponseBody
-	public /*JSONObject*/ void publicNews(/*@RequestBody JSONObject json*/)
+	public JSONObject publicNews(@RequestBody JSONObject json)
 	{
-		/*String newsId = json.getString("newsId");*/
-		String newsId = "01";
+		String newsId = json.getString("newsId");
+		json.clear();
 		service.publicNews(newsId);
 		
-		/*json.put("result", "success");
-		return json;*/
+		json.put("result", "success");
+		return json;
 	}
 	
 	@RequestMapping(value = "/unPublicNews")
 	@ResponseBody
-	public /*JSONObject*/ void unPublicNews(/*@RequestBody JSONObject json*/)
+	public JSONObject unPublicNews(@RequestBody JSONObject json)
 	{
-		String newsId = "01";
+		String newsId = json.getString("newsId");
+		json.clear();
 		service.unPublicNews(newsId);
-		/*json.put("result", "ok");
+		json.put("result", "ok");
 		
-		return json;*/
+		return json;
 	}
 	
 	@RequestMapping(value = "/deleteNews")
 	@ResponseBody
-	public void deleteNews(){
-		String newsId = "04";
+	public JSONObject deleteNews(@RequestBody JSONObject json){
+		String newsId = json.getString("newsId");
+		json.clear();
 		
 		service.deleteNews(newsId);
+		//没有的newsId也会返回成功，这里有点问题。
+		
+		json.put("result", "ok");
+		
+		return json;
 	}
 }

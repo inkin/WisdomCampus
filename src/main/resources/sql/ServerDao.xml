@@ -10,9 +10,17 @@
 		<result property="serverName" column="server_name"/>
 	</resultMap>
 	
-	<select id="selectServer" resultMap="server">
+	<select id="selectServer" parameterType="string" resultMap="server">
 		select server_name,server_tell,server_address
 		from server
+		<trim prefix="where" prefixOverrides="or ">
+			<if test="_parameter != null and _parameter != '' ">
+				server_name like '%${_parameter}%'
+			</if>
+			<if test="_parameter != null and _parameter != '' ">
+				or server_address like '%${_parameter}%'
+			</if>
+		</trim>
 	</select>
 	
 	<insert id="addServer" parameterType="com.ocean.model.Server">

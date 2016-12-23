@@ -13,7 +13,7 @@ public interface ServerDao {
 	 * 查询所有服务
 	 * @return
 	 */
-	List<Server> selectServer();
+	List<Server> selectServer(String key);
 	
 	/**
 	 * 添加服务

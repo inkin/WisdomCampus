@@ -87,7 +87,7 @@
 			#{newsDate},
 			#{newsContent},
 			#{newsTypeId},
-			#{newsStatus}
+			'就绪'
 		)
 	</insert>
 	

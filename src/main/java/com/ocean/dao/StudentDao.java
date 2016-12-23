@@ -21,7 +21,7 @@ public interface StudentDao {
 	 * @param studentName
 	 * @return
 	 */
-	Student selectStudentByName(String studentName);
+	List<Student> selectStudentByName(String studentName);
 
 	/**
 	 * 查询同班同学的基本信息

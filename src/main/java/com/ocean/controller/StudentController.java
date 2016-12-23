@@ -1,11 +1,8 @@
 package com.ocean.controller;
 
-import java.util.Iterator;
 import java.util.List;
 
 import javax.annotation.Resource;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -15,6 +12,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.ocean.model.Student;
 import com.ocean.service.StudentService;
 
+import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
 
 /**
@@ -42,6 +40,7 @@ public class StudentController
 	{
 		String account = json.getString("account");
 		String password = json.getString("password");
+		System.out.println(account);
 		json.clear();
 
 		Student student = service.login(account);
@@ -68,31 +67,29 @@ public class StudentController
 	 * 根据姓名查找学生
 	 */
 	@RequestMapping(value = "/selectStudentByName")
-	public void selectStudentByName( ) 
+	@ResponseBody
+	public JSONArray selectStudentByName( @RequestBody JSONObject json ) 
 	{
-		String studentName = "龙卷风";
-
-		Student student = service.selectStudentByName(studentName);
-
-		System.out.println(student.toString());
+		String studentName = json.getString("studentName");
+		List<Student> students = service.selectStudentByName(studentName);
+		JSONArray jsonArray = JSONArray.fromObject(students);
+		return jsonArray;
 	}
 
 	/*
 	 * 根据班级查找学生
 	 */
 	@RequestMapping("/selectClassmates")
-	public void selectClassmates(HttpServletRequest request, HttpServletResponse response) 
+	@ResponseBody
+	public JSONArray selectClassmates(@RequestBody JSONObject json) 
 	{
-		// String account = request.getParameter("account");
-		String account = "201324130000";
+		String account = json.getString("account");
 
 		List<Student> classmates = service.selectClassmates(account);
 
-		for (Iterator<Student> iterator = classmates.iterator(); iterator.hasNext();) 
-		{
-			Student student = iterator.next();
-			System.out.println(student.toString());
-		}
+		JSONArray jsonArray = JSONArray.fromObject(classmates);
+		
+		return jsonArray;
 
 	}
 

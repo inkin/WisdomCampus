@@ -31,7 +31,6 @@ public class News {
 
 	public News(String newsId, String newsTitle, String newsAuthor, String newsDate, String newsContent,
 		 String newsTypeId) {
-		super();
 		this.newsId = newsId;
 		this.newsTitle = newsTitle;
 		this.newsAuthor = newsAuthor;

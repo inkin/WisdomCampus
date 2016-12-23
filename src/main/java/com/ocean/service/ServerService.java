@@ -15,9 +15,9 @@ public class ServerService
 	
 	@Resource ServerDao dao;
 	
-	public List<Server> selectServer()
+	public List<Server> selectServer(String key)
 	{
-		return dao.selectServer();
+		return dao.selectServer(key);
 	}
 	
 	public void addServer(Server server)
