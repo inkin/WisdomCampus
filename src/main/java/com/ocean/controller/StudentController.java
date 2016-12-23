@@ -48,17 +48,17 @@ public class StudentController
 
 		if (student == null) 
 		{
-			json.put("status", "no such a student");
+			json.put("result", "no such a student");
 			return json;
 		} 
 		else if (!password.equals(student.getPassword())) 
 		{
-			json.put("status", "password error");
+			json.put("result", "password error");
 			return json;
 		} 
 		else 
 		{
-			json.put("status", "success");
+			json.put("result", "success");
 			return json;
 		}
 
