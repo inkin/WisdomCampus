@@ -12,16 +12,27 @@
 		<result property="studentSex" column="s_sex"/>
 		<result property="classNo" column="class_no"/>
 		<result property="expression" column="s_expression"/>
+		<result property="password" column="password"/>
 	</resultMap>
 	
-	<select id="selectStudentByName" parameterType="string" resultMap="student">
-		select * 
+	<select id="selectStudent" parameterType="string" resultMap="student">
+		select s_no,s_name,s_tell,s_mail,s_picture,s_sex,class_no,s_expression 
 		from student 
-		where s_name like '%${_parameter}%'
+		<trim prefix="where" prefixOverrides="or |and ">
+			<if test="_parameter != null and _parameter != '' ">
+				s_name like '%${_parameter}%'
+			</if>
+			<if test="_parameter != null and _parameter != '' ">
+				or s_tell like '%${_parameter}%'
+			</if>
+			<if test="_parameter != null and _parameter != '' ">
+				or s_mail like '%${_parameter}%'
+			</if>
+		</trim>
 	</select>
 	
 	<select id="login" parameterType="string" resultMap="student">
-		select * 
+		select s_no,password
 		from student 
 		where s_no=#{account}
 	</select>
@@ -31,5 +42,22 @@
 		from student
 		where class_no=(select class_no from student where s_no=#{account})
 	</select> 
+	
+	<update id="updateExpression" parameterType="map">
+		update student
+		set s_expression=#{expression}
+		where s_no=#{account}
+	</update>
+	
+	<update id="updatePassword" parameterType="map">
+		update student
+		set password=#{newPassword}
+		where s_no=#{account}
+	</update>
+	
+	<delete id="deleteStudent" parameterType="string">
+		delete from student
+		where s_no=#{studentId}
+	</delete>
 	
 </mapper>

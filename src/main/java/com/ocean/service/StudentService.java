@@ -1,6 +1,7 @@
 package com.ocean.service;
 
 import java.util.List;
+import java.util.Map;
 
 import javax.annotation.Resource;
 
@@ -15,13 +16,13 @@ public class StudentService {
 	StudentDao dao;
 
 	/**
-	 * 根据名字查询学生
+	 * 查询学生
 	 * @param studentName
 	 * @return
 	 */
-	public List<Student> selectStudentByName(String studentName)
+	public List<Student> selectStudent(String key)
 	{
-		return dao.selectStudentByName(studentName);
+		return dao.selectStudent(key);
 	}
 
 	/**
@@ -49,18 +50,28 @@ public class StudentService {
 	 * @param account
 	 * @param expression
 	 */
-	public void updateExpression(String account,String expression)
+	public void updateExpression(Map<String, String> map)
 	{
-		dao.updateExpression(account, expression);
+		dao.updateExpression(map);
 	}
 	
 	/**
 	 * 更改密码
 	 * @param account
 	 * @param newPassword
+	 * @param oldPassword
 	 */
-	public void updatePassword(String account,String newPassword)
+	public void updatePassword(Map<String, String> map)
 	{
-		dao.updatePassword(account, newPassword);
+		dao.updatePassword(map);
+	}
+	
+	/**
+	 * 删除学生
+	 * @param studentId
+	 */
+	public void deleteStudent(String studentId)
+	{
+		dao.deleteStudent(studentId);
 	}
 }

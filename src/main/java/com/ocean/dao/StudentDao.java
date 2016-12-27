@@ -1,6 +1,7 @@
 package com.ocean.dao;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.stereotype.Repository;
 
@@ -17,11 +18,11 @@ public interface StudentDao {
 	Student login(String account);
 
 	/**
-	 * 根据名字查询学生
+	 * 查询学生
 	 * @param studentName
 	 * @return
 	 */
-	List<Student> selectStudentByName(String studentName);
+	List<Student> selectStudent(String key);
 
 	/**
 	 * 查询同班同学的基本信息
@@ -30,16 +31,22 @@ public interface StudentDao {
 	List<Student> selectClassmates(String account);
 	
 	/**
-	 * 修改密码
-	 * @param account
-	 * @param newPassword
-	 */
-	void updatePassword(String account, String newPassword);
-	
-	/**
 	 * 修改个人说明
 	 * @param account
 	 * @param expression
 	 */
-	void updateExpression(String account,String expression);
+	void updateExpression(Map<String, String> map);
+	
+	/**
+	 * 修改密码
+	 * @param account
+	 * @param newPassword
+	 */
+	void updatePassword(Map<String, String> map);
+	
+	/**
+	 * 删除学生
+	 * @param studentId
+	 */
+	void deleteStudent(String studentId);
 }
