@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ocean.dao.TeacherDao">
+	<resultMap type="com.ocean.model.Teacher" id="teacher">
+		<result property="teacherNo" column="t_no"/>
+		<result property="teacherName" column="t_name"/>
+		<result property="teacherMail" column="t_mail"/>
+		<result property="teacherTell" column="t_tell"/>
+		<result property="teacherDegree" column="t_degree"/>
+		<result property="expression" column="t_expression"/>
+		<result property="teacherPicture" column="t_picture"/>
+		<result property="password" column = "password"/>
+		<result property="instituteNo" column="institute_no"/>
+	</resultMap>
+	
+	<insert id="addTeacher" parameterType="com.ocean.model.Teacher">
+		insert into teacher
+		(
+			t_no,
+			t_name,
+			t_mail,
+			t_tell,
+			t_degree,
+			t_expression,
+			t_picture,
+			password,
+			institute_no
+		)
+		values
+		(
+			#{teacherNo},
+			#{teacherName},
+			#{teacherMail},
+			#{teacherTell},
+			#{teacherDegree},
+			#{expression},
+			#{teacherPicture},
+			#{password},
+			#{instituteNo}
+		)
+	</insert>
+	
+	<update id="updateTeacher" parameterType="com.ocean.model.Teacher">
+		update teacher
+		<trim prefix="set" suffixOverrides=",">
+			<if test="_parameter.teacherName != null and _parameter.teacherName != '' ">
+				t_name=#{_parameter.teacherName},
+			</if>
+			<if test="_parameter.teacherMail != null and _parameter.teacherMail != '' ">
+				t_mail=#{_parameter.teacherMail},
+			</if>
+			<if test="_parameter.teacherTell != null and _parameter.teacherTell != '' ">
+				t_tell=#{_parameter.teacherTell},
+			</if>
+			<if test="_parameter.teacherDegree != null and _parameter.teacherDegree != '' ">
+				t_degree=#{_parameter.teacherDegree},
+			</if>
+			<if test="_parameter.expression != null and _parameter.expression != '' ">
+				t_expression=#{_parameter.expression},
+			</if>
+			<if test="_parameter.teacherPicture != null and _parameter.teacherPicture != '' ">
+				t_picture=#{_parameter.teacherPicture},
+			</if>
+			<if test="_parameter.password != null and _parameter.password != '' ">
+				password=#{_parameter.password},
+			</if>
+			<if test="_parameter.instituteNo != null and _parameter.instituteNo != '' ">
+				institute_no=#{_parameter.instituteNo}
+			</if>
+		</trim>
+	</update>
+	
+	<select id="selectTeacher" parameterType="string" resultMap="teacher">
+		select t_no, t_name,t_tell,t_mail,t_degree,t_picture,t_expression,institute_no
+		from teacher
+		<trim prefix="where" prefixOverrides="and |or ">
+			<if test="_parameter != null and _parameter != '' ">
+				t_name like '%{_parameter}%'
+			</if>
+			<if test="_parameter != null and _parameter != '' ">
+				or t_tell like '%{_parameter}%'
+			</if>
+			<if test="_parameter != null and _parameter != '' ">
+				or t_degree=#{_parameter}
+			</if>
+			<if test="_parameter != null and _parameter != '' ">
+				or institute_no=#{_parameter}
+			</if>
+		</trim>
+	</select>
+	
+	<delete id="deleteTeacher" parameterType="string">
+		delete from teacher
+		where t_No=#{teacherId}
+	</delete>
+	
+</mapper>
