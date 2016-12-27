@@ -15,6 +15,18 @@
 		<result property="instituteNo" column="institute_no"/>
 	</resultMap>
 	
+	<resultMap type="com.ocean.pojo.TeacherInfo" id="teacherInfo">
+		<result property="teacherNo" column="t_no"/>
+		<result property="teacherName" column="t_name"/>
+		<result property="teacherMail" column="t_mail"/>
+		<result property="teacherTell" column="t_tell"/>
+		<result property="teacherDegree" column="t_degree"/>
+		<result property="expression" column="t_expression"/>
+		<result property="teacherPicture" column="t_picture"/>
+		<result property="course" column = "cs_name"/>
+		<result property="instituteNo" column="institute_no"/>
+	</resultMap>
+	
 	<insert id="addTeacher" parameterType="com.ocean.model.Teacher">
 		insert into teacher
 		(
@@ -72,9 +84,12 @@
 		</trim>
 	</update>
 	
-	<select id="selectTeacher" parameterType="string" resultMap="teacher">
-		select t_no, t_name,t_tell,t_mail,t_degree,t_picture,t_expression,institute_no
-		from teacher
+	<select id="selectTeacher" parameterType="string" resultMap="teacherInfo">
+		select t_no, t_name,t_tell,t_mail,t_degree,t_picture,t_expression,institute_no,cs_name
+		from (select t_no, t_name,t_tell,t_mail,t_degree,t_picture,t_expression,institute_no,cs_name
+				from teacher,course
+				where t_no=teacher_no
+			) as A
 		<trim prefix="where" prefixOverrides="and |or ">
 			<if test="_parameter != null and _parameter != '' ">
 				t_name like '%{_parameter}%'
