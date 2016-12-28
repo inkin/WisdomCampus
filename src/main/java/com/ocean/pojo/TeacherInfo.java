@@ -1,10 +1,13 @@
 package com.ocean.pojo;
 
+import org.springframework.stereotype.Component;
+
 /**
  * 公共模块，查询全校教师信息类
  * @author Ocean
  *
  */
+@Component
 public class TeacherInfo {
 	private String teacherNo;            //教工号
 	private String teacherName;          //教师姓名

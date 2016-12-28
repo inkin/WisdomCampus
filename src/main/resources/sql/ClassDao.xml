@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ocean.dao.ClassDao">
+	<resultMap id="clazz" type="com.ocean.model.Clazz">
+		<result property="classNo" column="c_no"/>
+		<result property="className" column="c_name"/>
+		<result property="classMember" column="c_member"/>
+		<result property="classGrade" column="c_grade"/>
+		<result property="instituteNo" column="institute_no"/>
+	</resultMap>
+	
+	<insert id="addClass" parameterType="com.ocean.model.Clazz">
+		insert into class
+		(
+			c_no,
+			c_name,
+			c_member,
+			c_grade,
+			institute_no
+		)
+		values
+		(
+			#{classNo},
+			#{className},
+			#{classMember},
+			#{classGrade},
+			#{instituteNo}
+		)
+	</insert>
+	
+	<update id="updateClass" parameterType="com.ocean.model.Clazz">
+		update class
+		set
+			c_name=#{className},
+			c_member=#{classMember},
+			c_grade=#{classGrade},
+			institute_no=#{instituteNo}
+		where c_no=#{classNo}
+	</update>
+	
+	<delete id="deleteClass" parameterType="string">
+		delete from class
+		where c_no=#{classNo}
+	</delete>
+	
+	<select id="selectClass" parameterType="string" resultMap="clazz">
+		select *
+		from class
+		<trim prefix="where" prefixOverrides="or ">
+			<if test="_parameter != null and _parameter != '' ">
+				c_name like '%${_parameter}%'
+			</if>
+			<if test="_parameter != null and _parameter != '' ">
+				or c_grade like '%${_parameter}%'
+			</if>
+			<if test="_parameter != null and _parameter != '' ">
+				or institute_no like '%${_parameter}%'
+			</if>
+		</trim>
+	</select>
+	
+</mapper>
