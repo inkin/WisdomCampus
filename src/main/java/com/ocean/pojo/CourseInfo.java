@@ -1,5 +1,10 @@
 package com.ocean.pojo;
 
+/**
+ * 课程模糊查询实体类
+ * @author Ocean
+ *
+ */
 public class CourseInfo {
 	private String courseName;
 	private String courseTerm;
