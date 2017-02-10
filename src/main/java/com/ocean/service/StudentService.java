@@ -14,15 +14,14 @@ import com.ocean.model.Student;
 public class StudentService {
 	@Resource
 	StudentDao dao;
-
+	
 	/**
-	 * 查询学生
-	 * @param studentName
-	 * @return
+	 * 添加学生
+	 * @param student
 	 */
-	public List<Student> selectStudent(String key)
+	public void addStudent(Student student)
 	{
-		return dao.selectStudent(key);
+		dao.addStudent(student);
 	}
 
 	/**
@@ -33,6 +32,16 @@ public class StudentService {
 	public Student login(String account) 
 	{
 		return dao.login(account);
+	}
+	
+	/**
+	 * 查询学生
+	 * @param studentName
+	 * @return
+	 */
+	public List<Student> selectStudent(String key)
+	{
+		return dao.selectStudent(key);
 	}
 	
 	/**

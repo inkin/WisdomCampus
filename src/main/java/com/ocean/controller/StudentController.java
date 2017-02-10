@@ -30,6 +30,33 @@ public class StudentController
 {
 	@Resource
 	StudentService service;
+	
+	/**
+	 * 添加学生
+	 * @param json
+	 * @return
+	 */
+	@RequestMapping(value = "/addStudent")
+	public JSONObject addStudent(@RequestBody JSONObject json)
+	{
+		String studentNo = json.getString("studentNo");
+		String studentName = json.getString("studentName");
+		String studentTell = json.getString("studentTell");
+		String studentMail = json.getString("studentMail");
+		String studentPicture = json.getString("studentPicture");
+		String studentSex = json.getString("studentSex");
+		String classNo = json.getString("classNo");
+		String expression = json.getString("expression");
+		
+		Student student = new Student(studentNo, studentName, studentTell, 
+				studentMail, studentPicture, studentSex, classNo, expression,studentNo);
+		
+		service.addStudent(student);
+		json.clear();
+		json.put("result", "ok");
+		
+		return json;
+	}
 
 	/**
 	 * 登录

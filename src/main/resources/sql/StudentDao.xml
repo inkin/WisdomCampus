@@ -15,6 +15,33 @@
 		<result property="password" column="password"/>
 	</resultMap>
 	
+	<insert id="addStudent" parameterType="com.ocean.model.Student">
+		insert into student
+		(
+			s_no,
+			s_name,
+			s_tell,
+			s_mail,
+			s_picture,
+			s_sex,
+			class_no,
+			password,
+			s_expression
+		)
+		values
+		(
+			#{studentNo},
+			#{studentName},
+			#{studentTell},
+			#{studentMail},
+			#{studentPicture},
+			#{studentSex},
+			#{classNo},
+			#{password},
+			#{expression}
+		)
+	</insert>
+	
 	<select id="selectStudent" parameterType="string" resultMap="student">
 		select s_no,s_name,s_tell,s_mail,s_picture,s_sex,class_no,s_expression 
 		from student 

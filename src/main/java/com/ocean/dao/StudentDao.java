@@ -11,6 +11,12 @@ import com.ocean.model.Student;
 public interface StudentDao {
 	
 	/**
+	 * 添加学生
+	 * @param student
+	 */
+	void addStudent(Student student);
+	
+	/**
 	 * 学生登录
 	 * @param account
 	 * @return
